@@ -50,10 +50,16 @@ def solve_newton(guess, tol=1e-7, max_iter=50):
         f = F_system(x)
         if np.linalg.norm(f) < tol:
             return x
-       
+        
         J = get_jacobian(x)
+        
+        # --- THE ONE-LINER CHECK ---
+        # If the determinant is 0 (or very close to it), the matrix is not invertible.
+        if np.isclose(np.linalg.det(J), 0, atol=1e-12):
+            print(f"Iteration {i}: Matrix is singular (non-invertible). Stopping.")
+            return None
+        
         try:
-           
             delta = np.linalg.solve(J, -f)
             x = x + delta
         except np.linalg.LinAlgError:
@@ -76,4 +82,5 @@ for i, guess in enumerate(initial_guesses):
     if result is not None:
         print(f"{labels[i]:<15} | {result[0]:<15.4f} | {result[1]:<10.2f} | {result[2]:<10.2f}")
     else:
+
         print(f"{labels[i]:<15} | Failed to converge")
