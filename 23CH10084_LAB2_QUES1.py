@@ -53,7 +53,7 @@ def solve_newton(guess, tol=1e-7, max_iter=50):
         
         J = get_jacobian(x)
         
-        # --- THE ONE-LINER CHECK ---
+        
         # If the determinant is 0 (or very close to it), the matrix is not invertible.
         if np.isclose(np.linalg.det(J), 0, atol=1e-12):
             print(f"Iteration {i}: Matrix is singular (non-invertible). Stopping.")
@@ -84,4 +84,5 @@ for i, guess in enumerate(initial_guesses):
     else:
 
         print(f"{labels[i]:<15} | Failed to converge")
+
 
