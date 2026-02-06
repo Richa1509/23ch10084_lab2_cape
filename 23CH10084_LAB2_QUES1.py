@@ -84,3 +84,4 @@ for i, guess in enumerate(initial_guesses):
     else:
 
         print(f"{labels[i]:<15} | Failed to converge")
+
